@@ -57,12 +57,12 @@ class LoginWindow(QWidget):
         left_layout.addWidget(icon_frame, alignment=Qt.AlignHCenter)
 
         app_name = QLabel("LabTrack")
-        app_name.setStyleSheet("color: #38bdf8; font-size: 42px; font-weight: bold;")
+        app_name.setStyleSheet("color: #38bdf8; font-size: 42px; font-weight: bold; background: transparent;")
         app_name.setAlignment(Qt.AlignCenter)
         left_layout.addWidget(app_name)
 
         tagline = QLabel("Sistem Inventaris & Peminjaman\nLaboratorium Kampus")
-        tagline.setStyleSheet("color: #93c5fd; font-size: 15px;")
+        tagline.setStyleSheet("color: #93c5fd; font-size: 15px; background: transparent;")
         tagline.setAlignment(Qt.AlignCenter)
         left_layout.addWidget(tagline)
 
@@ -90,7 +90,7 @@ class LoginWindow(QWidget):
 
         left_layout.addSpacing(20)
         version = QLabel("v2.0.0 · Tugas Pemrograman Visual")
-        version.setStyleSheet("color: #475569; font-size: 11px;")
+        version.setStyleSheet("color: #475569; font-size: 11px; background: transparent;")
         version.setAlignment(Qt.AlignCenter)
         left_layout.addWidget(version)
 
@@ -116,117 +116,9 @@ class LoginWindow(QWidget):
 
     def _build_login_card(self):
         card = QFrame()
+        card.setObjectName("loginCard")
         card.setStyleSheet("""
-            QFrame {
-                background: #1e293b;
-                border-radius: 16px;
-                border: 1px solid #334155;
-            }
-        """)
-        card.setMinimumWidth(360)
-        card.setMaximumWidth(420)
-
-        shadow = QGraphicsDropShadowEffect()
-        shadow.setBlurRadius(30)
-        shadow.setColor(QColor(0, 0, 0, 120))
-        shadow.setOffset(0, 8)
-        card.setGraphicsEffect(shadow)
-
-        layout = QVBoxLayout(card)
-        layout.setContentsMargins(32, 32, 32, 32)
-        layout.setSpacing(14)
-
-        title = QLabel("Selamat Datang 👋")
-        title.setStyleSheet("color: #f1f5f9; font-size: 22px; font-weight: bold;")
-        layout.addWidget(title)
-
-        sub = QLabel("Masuk ke sistem LabTrack")
-        sub.setStyleSheet("color: #64748b; font-size: 13px;")
-        layout.addWidget(sub)
-
-        layout.addSpacing(4)
-
-        lbl_u = QLabel("Username")
-        lbl_u.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold;")
-        layout.addWidget(lbl_u)
-
-        self.inp_username = QLineEdit()
-        self.inp_username.setPlaceholderText("Masukkan username...")
-        self.inp_username.setMinimumHeight(44)
-        self.inp_username.setText("admin")
-        layout.addWidget(self.inp_username)
-
-        lbl_p = QLabel("Password")
-        lbl_p.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold;")
-        layout.addWidget(lbl_p)
-
-        pwd_row = QHBoxLayout()
-        self.inp_password = QLineEdit()
-        self.inp_password.setPlaceholderText("Masukkan password...")
-        self.inp_password.setEchoMode(QLineEdit.Password)
-        self.inp_password.setMinimumHeight(44)
-        self.inp_password.setText("admin123")
-        self.inp_password.returnPressed.connect(self._do_login)
-        pwd_row.addWidget(self.inp_password)
-
-        self.chk_show = QCheckBox()
-        self.chk_show.setToolTip("Tampilkan password")
-        self.chk_show.setStyleSheet("QCheckBox { color: #64748b; }")
-        self.chk_show.toggled.connect(
-            lambda v: self.inp_password.setEchoMode(
-                QLineEdit.Normal if v else QLineEdit.Password
-            )
-        )
-        pwd_row.addWidget(self.chk_show)
-        layout.addLayout(pwd_row)
-
-        self.lbl_login_error = QLabel("")
-        self.lbl_login_error.setStyleSheet("color: #f87171; font-size: 12px;")
-        self.lbl_login_error.setAlignment(Qt.AlignCenter)
-        self.lbl_login_error.hide()
-        layout.addWidget(self.lbl_login_error)
-
-        self.btn_login = QPushButton("  🔓  Masuk")
-        self.btn_login.setObjectName("btn_primary")
-        self.btn_login.setMinimumHeight(46)
-        self.btn_login.setFont(QFont("Segoe UI", 13, QFont.Bold))
-        self.btn_login.setCursor(Qt.PointingHandCursor)
-        self.btn_login.clicked.connect(self._do_login)
-        layout.addWidget(self.btn_login)
-
-        # Divider
-        div_row = QHBoxLayout()
-        l1 = QFrame(); l1.setObjectName("divider"); l1.setFixedHeight(1)
-        l2 = QFrame(); l2.setObjectName("divider"); l2.setFixedHeight(1)
-        div_lbl = QLabel("atau")
-        div_lbl.setStyleSheet("color: #475569; font-size: 11px; padding: 0 8px;")
-        div_lbl.setAlignment(Qt.AlignCenter)
-        div_row.addWidget(l1)
-        div_row.addWidget(div_lbl)
-        div_row.addWidget(l2)
-        layout.addLayout(div_row)
-
-        btn_reg = QPushButton("📝  Daftar Akun Baru")
-        btn_reg.setObjectName("btn_secondary")
-        btn_reg.setMinimumHeight(40)
-        btn_reg.setCursor(Qt.PointingHandCursor)
-        btn_reg.clicked.connect(lambda: self.stack.setCurrentIndex(1))
-        layout.addWidget(btn_reg)
-
-        hint = QLabel("Demo: admin/admin123 · laboran/laboran123 · viewer/viewer123")
-        hint.setStyleSheet("color: #334155; font-size: 10px;")
-        hint.setAlignment(Qt.AlignCenter)
-        hint.setWordWrap(True)
-        layout.addWidget(hint)
-
-        return card
-
-    # ── Form Registrasi ───────────────────────────────────────────
-
-    def _build_register_card(self):
-        card = QFrame()
-        card.setStyleSheet("""
-            QFrame {
+            #loginCard {
                 background: #1e293b;
                 border-radius: 16px;
                 border: 1px solid #334155;
@@ -245,12 +137,169 @@ class LoginWindow(QWidget):
         layout.setContentsMargins(32, 32, 32, 32)
         layout.setSpacing(12)
 
+        # Header
+        header_layout = QVBoxLayout()
+        header_layout.setSpacing(4)
+        title = QLabel("Selamat Datang 👋")
+        title.setStyleSheet("color: #f1f5f9; font-size: 22px; font-weight: bold; background: transparent;")
+        header_layout.addWidget(title)
+
+        sub = QLabel("Masuk ke sistem LabTrack")
+        sub.setStyleSheet("color: #64748b; font-size: 13px; background: transparent;")
+        header_layout.addWidget(sub)
+
+        layout.addLayout(header_layout)
+        layout.addSpacing(16)
+
+        # Style Input Global
+        input_style = """
+            QLineEdit {
+                background-color: #0f172a;
+                color: #e2e8f0;
+                border: 1px solid #334155;
+                border-radius: 8px;
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+            QLineEdit:focus {
+                border: 1px solid #38bdf8;
+            }
+        """
+
+        # Username
+        user_layout = QVBoxLayout()
+        user_layout.setSpacing(6)
+        lbl_u = QLabel("Username")
+        lbl_u.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold; background: transparent;")
+        user_layout.addWidget(lbl_u)
+
+        self.inp_username = QLineEdit()
+        self.inp_username.setPlaceholderText("Masukkan username...")
+        self.inp_username.setStyleSheet(input_style)
+        self.inp_username.setFixedHeight(40)
+        self.inp_username.setText("admin")
+        user_layout.addWidget(self.inp_username)
+        layout.addLayout(user_layout)
+
+        # Password
+        pass_layout = QVBoxLayout()
+        pass_layout.setSpacing(6)
+        lbl_p = QLabel("Password")
+        lbl_p.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold; background: transparent;")
+        pass_layout.addWidget(lbl_p)
+
+        pwd_row = QHBoxLayout()
+        pwd_row.setSpacing(8)
+
+        self.inp_password = QLineEdit()
+        self.inp_password.setPlaceholderText("Masukkan password...")
+        self.inp_password.setEchoMode(QLineEdit.Password)
+        self.inp_password.setStyleSheet(input_style)
+        self.inp_password.setFixedHeight(40)
+        self.inp_password.setText("admin123")
+        self.inp_password.returnPressed.connect(self._do_login)
+        pwd_row.addWidget(self.inp_password)
+
+        self.chk_show = QCheckBox()
+        self.chk_show.setToolTip("Tampilkan password")
+        self.chk_show.setStyleSheet("""
+            QCheckBox { color: #64748b; }
+            QCheckBox::indicator { width: 16px; height: 16px; }
+        """)
+        self.chk_show.toggled.connect(
+            lambda v: self.inp_password.setEchoMode(
+                QLineEdit.Normal if v else QLineEdit.Password
+            )
+        )
+        pwd_row.addWidget(self.chk_show)
+        pass_layout.addLayout(pwd_row)
+        layout.addLayout(pass_layout)
+
+        layout.addSpacing(16)
+
+        # Error & Tombol Login
+        self.lbl_login_error = QLabel("")
+        self.lbl_login_error.setStyleSheet("color: #f87171; font-size: 12px;")
+        self.lbl_login_error.setAlignment(Qt.AlignCenter)
+        self.lbl_login_error.hide()
+        layout.addWidget(self.lbl_login_error)
+
+        self.btn_login = QPushButton("  🔓  Masuk")
+        self.btn_login.setObjectName("btn_primary")
+        self.btn_login.setMinimumHeight(46)
+        self.btn_login.setFont(QFont("Segoe UI", 13, QFont.Bold))
+        self.btn_login.setCursor(Qt.PointingHandCursor)
+        self.btn_login.clicked.connect(self._do_login)
+        layout.addWidget(self.btn_login)
+
+        # Divider
+        div_row = QHBoxLayout()
+        l1 = QFrame()
+        l1.setStyleSheet("background-color: #334155; border: none;")
+        l1.setFixedHeight(1)
+        l2 = QFrame()
+        l2.setStyleSheet("background-color: #334155; border: none;")
+        l2.setFixedHeight(1)
+        div_lbl = QLabel("atau")
+        div_lbl.setStyleSheet("color: #475569; font-size: 11px; padding: 0 8px; background: transparent;")
+        div_lbl.setAlignment(Qt.AlignCenter)
+        div_row.addWidget(l1)
+        div_row.addWidget(div_lbl)
+        div_row.addWidget(l2)
+        layout.addLayout(div_row)
+
+        btn_reg = QPushButton("📝  Daftar Akun Baru")
+        btn_reg.setObjectName("btn_secondary")
+        btn_reg.setMinimumHeight(40)
+        btn_reg.setCursor(Qt.PointingHandCursor)
+        btn_reg.clicked.connect(lambda: self.stack.setCurrentIndex(1))
+        layout.addWidget(btn_reg)
+
+        hint = QLabel("Demo: admin/admin123 · laboran/laboran123 · viewer/viewer123")
+        hint.setStyleSheet("color: #334155; font-size: 10px; background: transparent;")
+        hint.setAlignment(Qt.AlignCenter)
+        hint.setWordWrap(True)
+        layout.addWidget(hint)
+
+        # --- TRIK WRAPPER AGAR TIDAK MELAR ---
+        wrapper = QWidget()
+        wrapper_layout = QVBoxLayout(wrapper)
+        wrapper_layout.setAlignment(Qt.AlignCenter) # Mengunci kartu di tengah
+        wrapper_layout.addWidget(card)
+
+        return wrapper
+
+    # ── Form Registrasi ───────────────────────────────────────────
+
+    def _build_register_card(self):
+        card = QFrame()
+        card.setObjectName("registerCard")
+        card.setStyleSheet("""
+            #registerCard {
+                background: #1e293b;
+                border-radius: 16px;
+                border: 1px solid #334155;
+            }
+        """)
+        card.setMinimumWidth(360)
+        card.setMaximumWidth(420)
+
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(30)
+        shadow.setColor(QColor(0, 0, 0, 120))
+        shadow.setOffset(0, 8)
+        card.setGraphicsEffect(shadow)
+
+        layout = QVBoxLayout(card)
+        layout.setContentsMargins(32, 32, 32, 32)
+        layout.setSpacing(10)
+
         title = QLabel("Buat Akun Baru 📝")
-        title.setStyleSheet("color: #f1f5f9; font-size: 21px; font-weight: bold;")
+        title.setStyleSheet("color: #f1f5f9; font-size: 21px; font-weight: bold; background: transparent;")
         layout.addWidget(title)
 
         sub = QLabel("Akun baru akan terdaftar sebagai Viewer")
-        sub.setStyleSheet("color: #64748b; font-size: 12px;")
+        sub.setStyleSheet("color: #64748b; font-size: 12px; background: transparent;")
         layout.addWidget(sub)
 
         # Role badge info
@@ -274,40 +323,63 @@ class LoginWindow(QWidget):
         info_layout.addWidget(info_lbl)
         layout.addWidget(info)
 
+        layout.addSpacing(8)
+
+        # Style Input yang sama persis dengan Login
+        input_style = """
+            QLineEdit {
+                background-color: #0f172a;
+                color: #e2e8f0;
+                border: 1px solid #334155;
+                border-radius: 8px;
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+            QLineEdit:focus {
+                border: 1px solid #38bdf8;
+            }
+        """
+
         lbl_fn = QLabel("Nama Lengkap *")
-        lbl_fn.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold;")
+        lbl_fn.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold; background: transparent;")
         layout.addWidget(lbl_fn)
         self.reg_fullname = QLineEdit()
         self.reg_fullname.setPlaceholderText("Nama lengkap Anda...")
-        self.reg_fullname.setMinimumHeight(42)
+        self.reg_fullname.setStyleSheet(input_style)
+        self.reg_fullname.setFixedHeight(40)
         layout.addWidget(self.reg_fullname)
 
         lbl_u = QLabel("Username *")
-        lbl_u.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold;")
+        lbl_u.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold; background: transparent;")
         layout.addWidget(lbl_u)
         self.reg_username = QLineEdit()
         self.reg_username.setPlaceholderText("Minimal 4 karakter...")
-        self.reg_username.setMinimumHeight(42)
+        self.reg_username.setStyleSheet(input_style)
+        self.reg_username.setFixedHeight(40)
         layout.addWidget(self.reg_username)
 
         lbl_p = QLabel("Password *")
-        lbl_p.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold;")
+        lbl_p.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold; background: transparent;")
         layout.addWidget(lbl_p)
         self.reg_password = QLineEdit()
         self.reg_password.setPlaceholderText("Minimal 6 karakter...")
         self.reg_password.setEchoMode(QLineEdit.Password)
-        self.reg_password.setMinimumHeight(42)
+        self.reg_password.setStyleSheet(input_style)
+        self.reg_password.setFixedHeight(40)
         layout.addWidget(self.reg_password)
 
         lbl_p2 = QLabel("Konfirmasi Password *")
-        lbl_p2.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold;")
+        lbl_p2.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold; background: transparent;")
         layout.addWidget(lbl_p2)
         self.reg_password2 = QLineEdit()
         self.reg_password2.setPlaceholderText("Ulangi password...")
         self.reg_password2.setEchoMode(QLineEdit.Password)
-        self.reg_password2.setMinimumHeight(42)
+        self.reg_password2.setStyleSheet(input_style)
+        self.reg_password2.setFixedHeight(40)
         self.reg_password2.returnPressed.connect(self._do_register)
         layout.addWidget(self.reg_password2)
+
+        layout.addSpacing(8)
 
         self.lbl_reg_error = QLabel("")
         self.lbl_reg_error.setStyleSheet("color: #f87171; font-size: 12px;")
@@ -331,7 +403,13 @@ class LoginWindow(QWidget):
         btn_back.clicked.connect(lambda: self.stack.setCurrentIndex(0))
         layout.addWidget(btn_back)
 
-        return card
+        # --- TRIK WRAPPER UNTUK KARTU REGISTRASI ---
+        wrapper = QWidget()
+        wrapper_layout = QVBoxLayout(wrapper)
+        wrapper_layout.setAlignment(Qt.AlignCenter)
+        wrapper_layout.addWidget(card)
+
+        return wrapper
 
     # ── Aksi Login ────────────────────────────────────────────────
 
