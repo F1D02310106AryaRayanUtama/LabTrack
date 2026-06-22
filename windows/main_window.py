@@ -102,9 +102,9 @@ class MainWindow(QMainWindow):
         role_icons = {'admin': '👑', 'laboran': '🔧', 'viewer': '👁️'}
         icon = role_icons.get(self.user.role, '👤')
         name_lbl = QLabel(f"{icon}  {self.user.full_name}")
-        name_lbl.setStyleSheet("color: #e2e8f0; font-weight: bold; font-size: 12px;")
+        name_lbl.setStyleSheet("color: #e2e8f0; font-weight: bold; font-size: 12px; background: transparent;")
         role_lbl = QLabel(f"@{self.user.username}  ·  {self.user.role.upper()}")
-        role_lbl.setStyleSheet("color: #38bdf8; font-size: 11px;")
+        role_lbl.setStyleSheet("color: #38bdf8; font-size: 11px; background: transparent;")
         bl.addWidget(name_lbl)
         bl.addWidget(role_lbl)
 
