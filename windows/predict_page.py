@@ -57,7 +57,7 @@ class PredictPage(BasePage):
         info_layout.setContentsMargins(16, 12, 16, 12)
 
         info_title = QLabel("ℹ️  Cara Kerja Prediksi")
-        info_title.setStyleSheet("color: #38bdf8; font-weight: bold; font-size: 13px;")
+        info_title.setStyleSheet("color: #38bdf8; font-weight: bold; font-size: 13px; background: transparent;")
         info_layout.addWidget(info_title)
 
         info_desc = QLabel(
@@ -66,7 +66,7 @@ class PredictPage(BasePage):
             "yang kemungkinan terjadi pada bulan berikutnya. "
             "Prediksi lebih akurat jika data histori lebih banyak."
         )
-        info_desc.setStyleSheet("color: #94a3b8; font-size: 12px;")
+        info_desc.setStyleSheet("color: #94a3b8; font-size: 12px; background: transparent;")
         info_desc.setWordWrap(True)
         info_layout.addWidget(info_desc)
         self.main_layout.addWidget(info)
