@@ -5,8 +5,6 @@ Jalankan: python main.py
 
 import sys
 import os
-
-# Pastikan working directory benar agar import modul lokal berhasil
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 from PySide6.QtWidgets import QApplication

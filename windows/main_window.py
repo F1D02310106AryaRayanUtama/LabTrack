@@ -99,9 +99,7 @@ class MainWindow(QMainWindow):
         bl.setContentsMargins(8, 8, 8, 8)
         bl.setSpacing(3)
 
-        role_icons = {'admin': '👑', 'laboran': '🔧', 'viewer': '👁️'}
-        icon = role_icons.get(self.user.role, '👤')
-        name_lbl = QLabel(f"{icon}  {self.user.full_name}")
+        name_lbl = QLabel(self.user.full_name)
         name_lbl.setStyleSheet("color: #e2e8f0; font-weight: bold; font-size: 12px; background: transparent;")
         role_lbl = QLabel(f"@{self.user.username}  ·  {self.user.role.upper()}")
         role_lbl.setStyleSheet("color: #38bdf8; font-size: 11px; background: transparent;")

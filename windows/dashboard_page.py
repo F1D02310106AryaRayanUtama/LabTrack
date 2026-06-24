@@ -18,6 +18,7 @@ from matplotlib.figure import Figure
 
 from models import Item, Loan, ActivityLog
 import database as db
+from controllers import AuthController
 from datetime import datetime
 
 
@@ -164,20 +165,23 @@ class DashboardPage(QWidget):
         charts_row.addWidget(self.chart_top, 2)
         layout.addLayout(charts_row)
 
-        # ── Recent Activity ──────────────────────────────────────
-        act_frame = QFrame()
-        act_frame.setObjectName("stat_card")
-        act_layout = QVBoxLayout(act_frame)
-        act_layout.setContentsMargins(16, 12, 16, 12)
+        # ── Recent Activity (admin only) ─────────────────────────
+        self.activity_container = None
+        role = AuthController.current_user.role if AuthController.current_user else ''
+        if role == 'admin':
+            act_frame = QFrame()
+            act_frame.setObjectName("stat_card")
+            act_layout = QVBoxLayout(act_frame)
+            act_layout.setContentsMargins(16, 12, 16, 12)
 
-        act_title = QLabel("⚡  Aktivitas Terbaru")
-        act_title.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold;")
-        act_layout.addWidget(act_title)
+            act_title = QLabel("⚡  Aktivitas Terbaru")
+            act_title.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold;")
+            act_layout.addWidget(act_title)
 
-        self.activity_container = QVBoxLayout()
-        self.activity_container.setSpacing(4)
-        act_layout.addLayout(self.activity_container)
-        layout.addWidget(act_frame)
+            self.activity_container = QVBoxLayout()
+            self.activity_container.setSpacing(4)
+            act_layout.addLayout(self.activity_container)
+            layout.addWidget(act_frame)
 
         scroll.setWidget(container)
 
@@ -265,6 +269,8 @@ class DashboardPage(QWidget):
         self.chart_top.refresh()
 
     def _update_activity(self):
+        if self.activity_container is None:
+            return
         # Clear existing
         while self.activity_container.count():
             item = self.activity_container.takeAt(0)
